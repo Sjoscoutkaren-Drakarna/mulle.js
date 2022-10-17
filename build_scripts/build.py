@@ -182,8 +182,8 @@ class Build:
             download_file(url, local_file, False)
         with zipfile.ZipFile(local_file, 'r') as zip_ref:
             zip_ref.extractall(extract_dir)
-        ShockwaveExtractor.main(['-e', '-i', os.path.join(extract_dir, '66.dxr')])
-        ShockwaveExtractor.main(['-e', '-i', os.path.join(extract_dir, 'Plugin.cst')])
+        ShockwaveExtractor.main(['-e', '-r', '-i', os.path.join(extract_dir, '66.dxr')])
+        ShockwaveExtractor.main(['-e', '-r', '-i', os.path.join(extract_dir, 'Plugin.cst')])
 
     def extract_iso(self, extract_content=True):
         iso_path = self.download_game(False)
@@ -211,7 +211,7 @@ class Build:
             iso.get_file_from_iso(extracted_file, iso_path=file)
             if extract_content:
                 try:
-                    ShockwaveExtractor.main(['-e', '-i', extracted_file])
+                    ShockwaveExtractor.main(['-e', '-r', '-i', extracted_file])
                 except Exception as e:
                     print('%s: %s' % (file, str(e)))
                     continue

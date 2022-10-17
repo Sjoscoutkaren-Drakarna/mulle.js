@@ -15,16 +15,28 @@ import re
 import logging
 import json
 from shutil import copyfile
-from palettes.grayscale import GRAYSCALE_256COLORS_PALETTE
-from palettes.metallic import METALLIC_256COLORS_PALETTE
-from palettes.ntsc import NTSC_256COLORS_PALETTE
-from palettes.pastels import PASTELS_256COLORS_PALETTE
-from palettes.rainbow import RAINBOW_256COLORS_PALETTE
-from palettes.systemMac import SYSTEM_MAC_256COLORS_PALETTE
-from palettes.systemWinDir4 import SYSTEM_WINDOWS_DIR4_256COLORS_PALETTE
-from palettes.systemWin import SYSTEM_WINDOWS_256COLORS_PALETTE
-from palettes.vivid import VIVID_256COLORS_PALETTE
-from palettes.web216 import WEB_256COLORS_PALETTE
+if __name__ == '__main__':
+    from palettes.grayscale import GRAYSCALE_256COLORS_PALETTE
+    from palettes.metallic import METALLIC_256COLORS_PALETTE
+    from palettes.ntsc import NTSC_256COLORS_PALETTE
+    from palettes.pastels import PASTELS_256COLORS_PALETTE
+    from palettes.rainbow import RAINBOW_256COLORS_PALETTE
+    from palettes.systemMac import SYSTEM_MAC_256COLORS_PALETTE
+    from palettes.systemWinDir4 import SYSTEM_WINDOWS_DIR4_256COLORS_PALETTE
+    from palettes.systemWin import SYSTEM_WINDOWS_256COLORS_PALETTE
+    from palettes.vivid import VIVID_256COLORS_PALETTE
+    from palettes.web216 import WEB_256COLORS_PALETTE
+else:
+    from .palettes.grayscale import GRAYSCALE_256COLORS_PALETTE
+    from .palettes.metallic import METALLIC_256COLORS_PALETTE
+    from .palettes.ntsc import NTSC_256COLORS_PALETTE
+    from .palettes.pastels import PASTELS_256COLORS_PALETTE
+    from .palettes.rainbow import RAINBOW_256COLORS_PALETTE
+    from .palettes.systemMac import SYSTEM_MAC_256COLORS_PALETTE
+    from .palettes.systemWinDir4 import SYSTEM_WINDOWS_DIR4_256COLORS_PALETTE
+    from .palettes.systemWin import SYSTEM_WINDOWS_256COLORS_PALETTE
+    from .palettes.vivid import VIVID_256COLORS_PALETTE
+    from .palettes.web216 import WEB_256COLORS_PALETTE
 
 logging.basicConfig(level=logging.DEBUG)
 
