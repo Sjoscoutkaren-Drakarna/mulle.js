@@ -777,7 +777,7 @@ def save_24bit_bmp(bmp_width, bmp_height, file, fdata):
 
 
 # ====================================================================================================================================
-def bitd2bmp(castData, bitd_file):
+def bitd2bmp(castData, bitd_file, output_dir):
     clutData = None
     
     with open(bitd_file, mode='rb') as file:
@@ -804,7 +804,7 @@ def bitd2bmp(castData, bitd_file):
             bmp_palette = str(bmp_palette)
             
             # Check if the cast member exists
-            base_dir = os.path.dirname(sys.argv[1])
+            base_dir = os.path.dirname(output_dir)
             if not os.path.isdir(os.path.join(base_dir, bmp_palette)):
               logging.error('Can\'t find cast member: %s'%(bmp_palette))
               sys.exit(-1)
@@ -863,7 +863,7 @@ def bitd2bmp(castData, bitd_file):
             logging.info(u"Saving file content to: %s"%(file_name))
 
 
-        with open(os.path.join(sys.argv[1], file_name), 'wb') as file:
+        with open(os.path.join(output_dir, file_name), 'wb') as file:
             # Write Windows bitmap file header
             file.write('BM'.encode('ascii'))
 
@@ -898,36 +898,39 @@ if __name__ == '__main__':
         print("USAGE: bitd2bmp <work directory> <bitd file name>")
 
     else:
-        if not os.path.isdir(sys.argv[1]):
-            logging.error(" '%s' is not a directory"%(sys.argv[1]))
+        output_dir = sys.argv[1]
+        bitd_file_name = sys.argv[2]
+
+        if not os.path.isdir(output_dir):
+            logging.error(" '%s' is not a directory"%(output_dir))
             sys.exit(-1)
 
-        if not os.path.isfile(os.path.join(sys.argv[1], sys.argv[2])):
-            logging.error(" '%s' is not a file"%(os.path.join(sys.argv[1], sys.argv[2])))
+        if not os.path.isfile(os.path.join(output_dir, bitd_file_name)):
+            logging.error(" '%s' is not a file"%(os.path.join(output_dir, bitd_file_name)))
             sys.exit(-1)
 
-        if not os.path.isfile(os.path.join(sys.argv[1], 'data.json')):
-            logging.error(" '%s' is not a file"%(os.path.join(sys.argv[1], 'data.json')))
+        if not os.path.isfile(os.path.join(output_dir, 'data.json')):
+            logging.error(" '%s' is not a file"%(os.path.join(output_dir, 'data.json')))
             sys.exit(-1)
         
-        if not sys.argv[2].endswith('.BITD'):
-            logging.error(" '%s' does not end in .BITD"%(sys.argv[2]))
+        if not bitd_file_name.endswith('.BITD'):
+            logging.error(" '%s' does not end in .BITD"%(bitd_file_name))
             sys.exit(-1)
             
         # Get cast file data
         json_data = None
-        with open(os.path.join(sys.argv[1], 'data.json'), encoding='utf-8') as json_file:
+        with open(os.path.join(output_dir, 'data.json'), encoding='utf-8') as json_file:
             text = json_file.read()
             json_data = json.loads(text)
         
         # Generate BMP image
-        bitd_file = os.path.join(sys.argv[1], sys.argv[2])
-        bitd2bmp(json_data, bitd_file)
+        bitd_file = os.path.join(output_dir, bitd_file_name)
+        bitd2bmp(json_data, bitd_file, output_dir)
         
         # Use ImageMagick to remove the background
-        inp_name = os.path.join(sys.argv[1], "%s.%s"%(os.path.basename(bitd_file)[:-5], 'bmp'))
-        tmp_name = os.path.join(sys.argv[1], "%s.%s"%(os.path.basename(bitd_file)[:-5], 'tmp.png'))
-        out_name = os.path.join(sys.argv[1], "%s.%s"%(os.path.basename(bitd_file)[:-5], 'png'))
+        inp_name = os.path.join(output_dir, "%s.%s"%(os.path.basename(bitd_file)[:-5], 'bmp'))
+        tmp_name = os.path.join(output_dir, "%s.%s"%(os.path.basename(bitd_file)[:-5], 'tmp.png'))
+        out_name = os.path.join(output_dir, "%s.%s"%(os.path.basename(bitd_file)[:-5], 'png'))
         command = '-alpha off -bordercolor white -border 1 \\( +clone -fill none -floodfill +0+0 white '\
                   '-alpha extract \\) '\
                   '-compose CopyOpacity -composite -shave 1'
