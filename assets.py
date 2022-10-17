@@ -351,10 +351,14 @@ for res in MulleResources:
             if (palette_txt == 0):
                 palette_txt = "systemMac"
 
+            bit_depth = mem["imageBitDepth"]
+            if (bit_depth == 83):
+                bit_depth = 2
+
             bitd_cast_data = {
                 "height": mem["imageHeight"],
                 "width": mem["imageWidth"],
-                "depth": mem["imageBitDepth"],
+                "depth": bit_depth,
                 "palette": mem["imagePalette"],
                 "palette_txt": palette_txt,
                 "h_padding": 0, 
