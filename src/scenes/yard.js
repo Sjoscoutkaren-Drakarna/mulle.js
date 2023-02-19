@@ -41,32 +41,32 @@ class YardState extends MulleState {
 
     // var this.door_side, door_garage;
 
-    let mailbox
-    if (this.game.mulle.user.mail === 1) {
-      mailbox = new MulleButton(this.game, 320, 240, {
-        imageDefault: ['04.DXR', 44],
-        click: (a) => {
-          this.game.mulle.user.mail = 0
-          alert('Mission')
-        }
-      })
-    }
-    else {
-      mailbox = new MulleButton(this.game, 320, 240, {
-        imageDefault: ['04.DXR', 42],
-        imageHover: ['04.DXR', 43],
-        soundDefault: '04e009v0',
-        soundHover: '04e010v0',
-        click: (a) => {
-          this.mulleActor.talk('04d001v0')
-        }
-      })
-    }
-    this.game.add.existing(mailbox)
+
 
     if (this.game.mulle.user.toYardThroughDoor) {
       // without car
-
+      let mailbox
+      if (this.game.mulle.user.mail === 1) {
+        mailbox = new MulleButton(this.game, 320, 240, {
+          imageDefault: ['04.DXR', 44],
+          click: (a) => {
+            this.game.mulle.user.mail = 0
+            alert('Mission')
+          }
+        })
+      }
+      else {
+        mailbox = new MulleButton(this.game, 320, 240, {
+          imageDefault: ['04.DXR', 42],
+          imageHover: ['04.DXR', 43],
+          soundDefault: '04e009v0',
+          soundHover: '04e010v0',
+          click: (a) => {
+            this.mulleActor.talk('04d001v0')
+          }
+        })
+      }
+      this.game.add.existing(mailbox)
       this.door_side = new MulleButton(this.game, 320, 240, {
         imageDefault: ['04.DXR', 13],
         imageHover: ['04.DXR', 14],
@@ -100,6 +100,7 @@ class YardState extends MulleState {
       this.buffaActor = new MulleActor(this.game, 320, 222, 'buffa')
       this.game.add.existing(this.buffaActor)
 
+
       if(this.game.mulle.user.figgeBeenHere === 1)
       {
         this.game.mulle.user.figgeBeenHere = 0
@@ -112,6 +113,28 @@ class YardState extends MulleState {
 
     } else {
       // with car
+      let mailbox
+      if (this.game.mulle.user.mail === 1) {
+        mailbox = new MulleButton(this.game, 320, 240, {
+          imageDefault: ['04.DXR', 44],
+          click: (a) => {
+            this.game.mulle.user.mail = 0
+            alert('Mission')
+          }
+        })
+      }
+      else {
+        mailbox = new MulleButton(this.game, 320, 240, {
+          imageDefault: ['04.DXR', 42],
+          imageHover: ['04.DXR', 43],
+          soundDefault: '04e009v0',
+          soundHover: '04e010v0',
+          click: (a) => {
+            this.game.mulle.actors.mulle.talk('04d001v0')
+          }
+        })
+      }
+      this.game.add.existing(mailbox)
 
       var go_road = new MulleButton(this.game, 320, 240, {
         imageDefault: ['04.DXR', 16],
@@ -125,6 +148,8 @@ class YardState extends MulleState {
           this.game.state.start('world')
         }
       })
+
+
       this.game.add.existing(go_road)
 
       go_road.cursor = 'Click'
