@@ -9,3 +9,4 @@ cst_out_new/
 *.pyc
 /bin
 /build_scripts/iso
+venv

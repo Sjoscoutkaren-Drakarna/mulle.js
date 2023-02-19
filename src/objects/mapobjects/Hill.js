@@ -4,21 +4,28 @@ var MapObject = {}
 
 MapObject.onEnterInner = function (car) {
   console.log('enter hill, custom object', this)
+  const strength = this.game.mulle.user.Car.getProperty('strength')
 
   if (this.opt.HillType === '#SmallHill') {
-    if (this.game.mulle.user.Car.getQuickProperty('strength') <= this.game.mulle.user.Car.criteria.SmallHill) {
-      console.log('small hill')
-
+    if (strength >= this.game.mulle.user.Car.criteria.SmallHill) {
+      console.log('small hill should stop')
       this.soundPlay = this.game.mulle.playAudio(this.def.Sounds[0])
+      car.speed = 0
+      car.stepback(9)
+
     } else {
+      console.log('small hill')
 
     }
   } else {
-    if (this.game.mulle.user.Car.getQuickProperty('strength') <= this.game.mulle.user.Car.criteria.BigHill) {
+    if (strength >= this.game.mulle.user.Car.criteria.BigHill) {
       console.log('big hill')
-
       this.soundPlay = this.game.mulle.playAudio(this.def.Sounds[1])
+      car.speed = 0
+      car.stepback(9)
+
     } else {
+      console.log('small hill')
 
     }
   }
