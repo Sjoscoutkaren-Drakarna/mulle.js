@@ -4,17 +4,32 @@ Mulle.js is an attempt to recreate a wonderful game from the past and bring it t
 
 You need to own the original release of Mulle Meck Bygger Bilar to use Mulle.js.
 
+
+## Mac
+Install dependencies
+* `brew install ffmpeg imagemagick nodejs npm optipng`
+
+
 ## Linux
 Install dependencies
 * **Arch Linux:** `sudo pacman -S python python-pip ffmpeg imagemagick nodejs npm`
 * **Debian/Ubuntu:** `sudo apt install python3 python3-pip ffmpeg imagemagick nodejs npm optipng`
 
-Python
-`sudo pip3 install -r requirements.txt`
-
-Extract assets
+Venv
 ```
-python3 extract_iso.py [path to iso]
+python3 -m venv venv
+```
+
+```
+source venv/bin/activate
+```
+
+Python
+`sudo pip install -r requirements.txt`
+
+To download
+```
+python build_scripts/build.py download
 ```
 
 You can then generate and start the Mulle.js website, and access it at http://localhost:8080/

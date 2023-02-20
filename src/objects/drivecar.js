@@ -465,19 +465,19 @@ class MulleDriveCar extends MulleSprite {
           if (altitude > 2) {
             altitude = 2
 
-            if (!this.game.mulle.user.Car.criteria.BigHill) {
-              console.log('big hill check')
-              setOk = false
-              this.speed = 0
-              // this.position.set( this.lastPosition.x, this.lastPosition.y );
-            }
-          } else if (altitude > 1) {
-            if (!this.game.mulle.user.Car.criteria.SmallHill) {
-              console.log('small hill check')
-              setOk = false
-              this.speed = 0
-              // this.position.set( this.lastPosition.x, this.lastPosition.y );
-            }
+          //   if (!this.game.mulle.user.Car.criteria.BigHill) {
+          //     console.log('big hill check')
+          //     setOk = false
+          //     // this.speed = 0
+          //     // this.position.set( this.lastPosition.x, this.lastPosition.y );
+          //   }
+          // } else if (altitude > 1) {
+          //   if (!this.game.mulle.user.Car.criteria.SmallHill) {
+          //     console.log('small hill check')
+          //     setOk = false
+          //     // this.speed = 0
+          //     // this.position.set( this.lastPosition.x, this.lastPosition.y );
+          //   }
           }
 
           // mud
@@ -487,6 +487,7 @@ class MulleDriveCar extends MulleSprite {
 
               setOk = false
               this.speed = 0
+              this.stepback(9)
 
               if (!this.SoundMud) {
                 var s = this.game.mulle.playAudio('05d003v0')

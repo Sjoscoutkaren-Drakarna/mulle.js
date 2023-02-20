@@ -14,6 +14,7 @@ from audiosprite import AudioSprite
 from build_scripts.parse_animation_chart import parse_animation_chart
 from build_scripts.MulleResource import MulleResource
 from build_scripts.data import director_data
+from build_scripts.bitd2bmp import bitd2bmp
 
 optimizeImages = int(sys.argv[1])
 
@@ -343,6 +344,33 @@ for res in MulleResources:
                     opaque += director_data.resolve_list(director_data.data[movie]['opaque_sv'])
             else:
                 print('No opaque data for %s' % movie)
+
+            palette_txt = mem["imagePalette"]
+            if (palette_txt == -100):
+                palette_txt = "systemWin"
+            if (palette_txt == 0):
+                palette_txt = "systemMac"
+
+            bit_depth = mem["imageBitDepth"]
+            if (bit_depth == 83):
+                bit_depth = 2
+
+            bitd_cast_data = {
+                "height": mem["imageHeight"],
+                "width": mem["imageWidth"],
+                "depth": bit_depth,
+                "palette": mem["imagePalette"],
+                "palette_txt": palette_txt,
+                "h_padding": 0, 
+                "w_padding": 0,
+            }
+            bitd_filename = fileBasePath + ".BITD"
+            if not os.path.exists(bitd_filename):
+                print('Missing file %s' % bitd_filename)
+                print('Run the extractor with the -r / --raw flag to generate .BITD files')
+
+            print("Running bitd2bmp on " + bitd_filename)
+            bitd2bmp(bitd_cast_data, bitd_filename, libPath)
 
             if not os.path.exists(fileBasePath + '.bmp'):
                 print('Missing file %s' % fileBasePath + '.bmp')

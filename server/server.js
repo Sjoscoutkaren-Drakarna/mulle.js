@@ -1,7 +1,7 @@
 const WebSocket = require('ws')
 const readline = require('readline')
 const moment = require('moment')
-// const colors = require('colors')
+const colors = require('colors')
 
 const rlCli = readline.createInterface({
   input: process.stdin,
@@ -30,7 +30,7 @@ class MulleServer {
   }
 
   log (text) {
-    var date = moment().format('YYYY-MM-DD HH:mm:ss')
+    var date = moment().format()
 
     rlCli.output.write('\x1b[2K\r')
 
@@ -379,8 +379,9 @@ class MulleServer {
           return ws.terminate()
         }
 
+        if(!ws.readyState == 1){
         ws.isAlive = false
-        ws.ping('', false, true)
+        ws.ping('', false, true)}
       })
     }, 30000)
 

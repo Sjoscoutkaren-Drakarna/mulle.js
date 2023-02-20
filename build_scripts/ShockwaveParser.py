@@ -1349,6 +1349,8 @@ class ShockwaveParser:
 
 						if le["type"] == "BITD":
 
+							# TODO: move bitd2bmp call here
+							# possibly passing the data directly
 						
 							self.f.seek( le['dataOffset'], 0 )
 							self.f.seek(8, 1) # fourcc, length

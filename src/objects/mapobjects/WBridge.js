@@ -5,6 +5,7 @@ import ObjectAnimation from './animation'
 /**
  * Weak bridge (map 8)
  * @type {{MapObject}}
+ * Map 8
  */
 const MapObject = {}
 
@@ -12,7 +13,7 @@ MapObject.onCreate = function () {
   this.animationHelper.static('normal', this.opt.Direction)
 
   this.animationSplash = this.animationHelper.add('splash', 'Splash', this.opt.Direction)
-  splash.onComplete.add(() => {
+  this.animationSplash.onComplete.add(() => {
     this.visible = false
   }, this)
 }
@@ -24,6 +25,7 @@ MapObject.onEnterInner = function (car) {
     console.log('Car weight ', weight)
     console.log('Car too heavy, bridge broken')
     this.animations.play('splash')
+    this.soundPlay = this.game.mulle.playAudio(this.def.Sounds[1])
     car.speed = 0
     car.stepback(9)
   } else {

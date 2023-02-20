@@ -182,8 +182,8 @@ class Build:
             download_file(url, local_file, False)
         with zipfile.ZipFile(local_file, 'r') as zip_ref:
             zip_ref.extractall(extract_dir)
-        ShockwaveExtractor.main(['-e', '-i', os.path.join(extract_dir, '66.dxr')])
-        ShockwaveExtractor.main(['-e', '-i', os.path.join(extract_dir, 'Plugin.cst')])
+        ShockwaveExtractor.main(['-e', '-r', '-i', os.path.join(extract_dir, '66.dxr')])
+        ShockwaveExtractor.main(['-e', '-r', '-i', os.path.join(extract_dir, 'Plugin.cst')])
 
     def extract_iso(self, extract_content=True):
         iso_path = self.download_game(False)
@@ -211,7 +211,7 @@ class Build:
             iso.get_file_from_iso(extracted_file, iso_path=file)
             if extract_content:
                 try:
-                    ShockwaveExtractor.main(['-e', '-i', extracted_file])
+                    ShockwaveExtractor.main(['-e', '-r', '-i', extracted_file])
                 except Exception as e:
                     print('%s: %s' % (file, str(e)))
                     continue
@@ -250,9 +250,10 @@ class Build:
             output_file = os.path.join(ui_folder, '%s.png' % name)
             shutil.copy(part_file, output_file)
 
-        loading_file = os.path.join(self.extract_folder, '00.CXT', 'Standalone', '122.bmp')
+        # TODO: run bitd2bmp while extracting
+        loading_file = os.path.join(self.extract_folder, '00.CXT', 'Standalone', '122.png')
         output_file = os.path.join(self.dist_folder, 'loading.png')
-        subprocess.run(['magick', 'convert', loading_file, output_file]).check_returncode()
+        shutil.copy(part_file, output_file)
 
     def topography(self):
         subprocess.run([sys.executable, os.path.join(self.script_folder, 'topography.py')])
