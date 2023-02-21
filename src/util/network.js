@@ -16,6 +16,7 @@ class MulleNet {
 
     var address = process.env.NODE_ENV !== 'production' ? this.game.mulle.networkDevServer : this.game.mulle.networkServer
 
+    var address = "192.168.68.100:8765"
     console.log('[network]', 'connect', address)
     this.socket = new WebSocket('ws://' + address)
 

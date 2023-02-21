@@ -41,6 +41,7 @@ MapObject.onCreate = function () {
       this.boardText1.text = boardNumber((Date.now() - this.raceStart) / 1000)
     }
   })
+  if(this.game.mulle.net.connected){
 
   this.networkListener = (event) => {
     var msg = JSON.parse(event.data)
@@ -53,8 +54,8 @@ MapObject.onCreate = function () {
       if (msg.race[1]) this.boardText2.text = boardNumber(msg.race[1].time) + ' ' + msg.race[1].name
     }
   }
-
-  this.game.mulle.net.socket.addEventListener('message', this.networkListener)
+    this.game.mulle.net.socket.addEventListener('message', this.networkListener)
+  }
 }
 
 function calcDirection (theStart, theEnd) {
@@ -116,7 +117,7 @@ MapObject.onEnterInner = function (car) {
 
         this.game.mulle.net.send({ race: finalTime })
 
-        alert(finalTime)
+        // alert(finalTime)
       }
     } else {
       console.log('start race')
@@ -161,11 +162,14 @@ MapObject.onExitInner = function (car) {
 }
 
 MapObject.onDestroy = function () {
+  console.log("165 is this here")
+  this.game.remove.existing(this.board)
   this.board.destroy()
-
   this.game.time.events.remove(this.boardLoop)
+  if(this.game.mulle.net.connected){
 
   this.game.mulle.net.socket.removeEventListener('message', this.networkListener)
+    }
 }
 
 export default MapObject

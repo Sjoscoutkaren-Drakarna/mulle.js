@@ -52,7 +52,7 @@ class CarShowState extends MulleState {
 
     // begin
 
-    const medal = this.game.mulle.SetWhenDone.Medals[0]
+    const medal = 0
     var funnyFactor = this.game.mulle.user.Car.getProperty('funnyfactor', 0)
 
     var rating

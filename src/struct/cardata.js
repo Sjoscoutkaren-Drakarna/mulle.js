@@ -203,7 +203,9 @@ class MulleCar {
   }
 
   isRoadLegal (talk = false) {
-    if (!this.getProperty('enginetype')) {
+    console.log("enginetype", this.getProperty('enginetype'))
+    if (!(this.getProperty('enginetype') ||this.getProperty('pedals')) ) {
+      console.log(this.getParts())
       if (talk) this.game.mulle.actors.mulle.talk('03d013v0')
       return false
     }
@@ -226,11 +228,11 @@ class MulleCar {
       return false
     }
 
-    // consumption
-    if (this.getProperty('fuelconsumption') === 0) {
-      if (talk) this.game.mulle.actors.mulle.talk('03d013v0')
-      return false
-    }
+    // // consumption
+    // if (this.getProperty('fuelconsumption') === 0) {
+    //   if (talk) this.game.mulle.actors.mulle.talk('03d013v0')
+    //   return false
+    // }
 
     // 03d014v0 battery
     if (this.getProperty('electricvolume') === 0) {
@@ -239,7 +241,7 @@ class MulleCar {
     }
 
     // 03d015v0 fuel
-    if (this.getProperty('fuelvolume') === 0) {
+    if (this.getProperty('fuelvolume') === 0 && 0 < this.getProperty('fuelconsumption')) {
       if (talk) this.game.mulle.actors.mulle.talk('03d015v0')
       return false
     }

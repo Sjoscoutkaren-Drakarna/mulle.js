@@ -15,7 +15,7 @@ class partUtil {
    * @returns int
    */
   getPart () {
-    console.log(this.game.mulle)
+    // console.log(this.game.mulle)
     if (this.game.mulle.SetWhenDone === undefined) {
       console.error('SetWhenDone is not defined, state not started from MapObject?')
       return 0

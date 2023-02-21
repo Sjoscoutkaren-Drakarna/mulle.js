@@ -1,8 +1,9 @@
 'use strict'
 
+// 22
 var MapObject = {}
 
-MapObject.onCreate = function () {
+MapObject.onCreate = function (car) {
   this.setDirectorMember(this.def.FrameList.normal[0])
 
   console.log('ferry', this)
@@ -13,14 +14,17 @@ MapObject.onCreate = function () {
 
   this.fromX = this.x
   this.fromY = this.y
+  this.ticket = this.game.mulle.user.hasStuff('#FerryTicket')
+  this.car = this.game.state.states[ this.game.state.current ].driveCar
 
-  this.ferryLoop()
+  this.ferryLoop(this.car)
 }
 
-MapObject.ferryLoop = function () {
-  var car = this.game.state.states[ this.game.state.current ].driveCar
+MapObject.ferryLoop = function (car) {
+  // var car = this.game.state.states[ this.game.state.current ].driveCar
 
   var dist = car.position.distance(this.position)
+
 
   var dropOff = [
     new Phaser.Point(254, 177),
@@ -38,7 +42,10 @@ MapObject.ferryLoop = function () {
   }
 
   // go on ferry
-  if (dist < 40 && !this.isOnFerry) {
+
+  if (dist < 40 && !this.isOnFerry && this.ticket) {
+    console.log("hello close to ferry?")
+    if(this.ticket){
     this.isOnFerry = true
 
     car.direction = this.ferryStep === 0 ? 14 : 7
@@ -52,14 +59,15 @@ MapObject.ferryLoop = function () {
     car.position.set(16, 16)
 
     car.bringToTop()
-
     /*
     var t = game.add.tween(car).to({
       x: this.x,
       y: this.y
     }, 100, Phaser.Easing.Linear.None, true)
     */
-  }
+  }else{
+    console.log("no ticket")
+  }}
 
   if (this.ferryStep === 0) {
     var t = game.add.tween(this).to({
@@ -70,7 +78,7 @@ MapObject.ferryLoop = function () {
     t.onComplete.addOnce(() => {
       game.time.events.add(Phaser.Timer.SECOND, () => {
         this.ferryStep++
-        this.ferryLoop()
+        this.ferryLoop(car)
       }, this)
     })
   }
@@ -84,7 +92,7 @@ MapObject.ferryLoop = function () {
     t.onComplete.addOnce(() => {
       game.time.events.add(Phaser.Timer.SECOND, () => {
         this.ferryStep = 0
-        this.ferryLoop()
+        this.ferryLoop(car)
       }, this)
     })
   }

@@ -75,6 +75,9 @@ class MudCarState extends MulleState {
     this.game.add.existing(mulle)
     this.game.mulle.actors.mulle = mulle
 
+    this.game.mulle.user.addPart('yard', this.partId)
+    this.game.mulle.user.Car.addCache(this.game.mulle.SetWhenDone.Cache[0])
+
     this.game.mulle.actors.mulle.talk('82d006v0', () => {
       new blinkThing(this.game, this.partSprite, this.exit, this)
     })
@@ -170,6 +173,19 @@ class MudCarState extends MulleState {
     this.rope = DirectorHelper.sprite(this.game, 321, 248, this.dirResource, 34)
     this.car_layer.add(this.rope)
     this.animations = this.game.cache.getJSON('MudcarAnimations')
+
+
+    if (!this.game.mulle.SetWhenDone) {
+      this.game.mulle.SetWhenDone = {
+        Cache: [
+          '#RoadThing1'
+        ],
+        'Parts': [
+          287,
+          '#Random'
+        ]
+      }
+    }
 
     this.driverAnimation()
   }

@@ -88,8 +88,8 @@ class MulleGame extends Phaser.Game {
     this.mulle.networkServer = 'mulle.dongers.net:8765'
     this.mulle.networkDevServer = 'localhost:8765'
 
-    this.mulle.defaultLanguage = 'english'
-    // this.mulle.defaultLanguage = 'swedish';
+    //this.mulle.defaultLanguage = 'english'
+    this.mulle.defaultLanguage = 'swedish';
     /**
      * Helper class for director assets
      * @type {DirectorHelper}
