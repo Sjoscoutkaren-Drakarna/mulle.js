@@ -24,10 +24,10 @@ MapObject.onEnterInner = function (car) {
     // TODO: Check sound and cutscene
     console.log('Car weight ', weight)
     console.log('Car too heavy, bridge broken')
-    this.animations.play('splash')
-    this.soundPlay = this.game.mulle.playAudio(this.def.Sounds[1])
     car.speed = 0
     car.stepback(9)
+    this.animations.play('splash')
+    this.soundPlay = this.game.mulle.playAudio(this.def.Sounds[1])
   } else {
     console.log('Light car')
     const hasMedal = this.game.mulle.user.Car.hasMedal(6)
