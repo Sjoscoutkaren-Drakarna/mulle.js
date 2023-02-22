@@ -25,7 +25,7 @@ source venv/bin/activate
 ```
 
 Python
-`sudo pip install -r requirements.txt`
+`pip install -r requirements.txt`
 
 To download
 ```
@@ -34,6 +34,7 @@ python build_scripts/build.py download
 
 You can then generate and start the Mulle.js website, and access it at http://localhost:8080/
 ```
+npm update
 npm install
 npm run build
 npm start
