@@ -14,6 +14,7 @@ Install dependencies
 Install dependencies
 * **Arch Linux:** `sudo pacman -S python python-pip ffmpeg imagemagick nodejs npm`
 * **Debian/Ubuntu:** `sudo apt install python3 python3-pip ffmpeg imagemagick nodejs npm optipng`
+* **Fedora/RHEL:** `sudo dnf install python python-pip ffmpeg ImageMagick nodejs npm`
 
 Venv
 ```
